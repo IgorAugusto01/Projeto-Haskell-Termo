@@ -1,10 +1,10 @@
 import Funcoes
-
+import System.IO
 
  
- main :: IO ()
+main :: IO ()
 main = do
-  
+ hSetEncoding stdout utf8
   -- recolhe as palvras do arquivo colocando
  palavras <- recolherPalavras "BancoDePalavras.txt"
 
@@ -14,4 +14,4 @@ main = do
  
  indiceAleatorio <- gerarAleatorio 0 (total - 1) 
  let palavraSorteada = escolherPalavraPeloIndice 0 indiceAleatorio  lista
- print palavraSorteada
+ putStrLn  palavraSorteada
