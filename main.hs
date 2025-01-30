@@ -9,7 +9,9 @@ main = do
  -- monta uma lista onde cada a partir da vírgula
  let lista = criaLista ',' "" palavras
  let total = contaPalavras lista
- let palavraSorteada = escolherPalavraPeloIndice 0 (total - 1)  lista
+ 
+ indiceAleatorio <- gerarAleatorio 0 (total - 1) 
+ let palavraSorteada = escolherPalavraPeloIndice 0 indiceAleatorio  lista
  print palavraSorteada
 
  

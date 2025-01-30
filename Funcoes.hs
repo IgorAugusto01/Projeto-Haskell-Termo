@@ -1,5 +1,6 @@
 
 module Funcoes  where 
+import Data.Time.Clock (getCurrentTime, utctDayTime)
 
 
 
@@ -28,3 +29,12 @@ escolherPalavraPeloIndice i n (x : xs)
 contaPalavras :: [[Char]] -> Int
 contaPalavras []  = 0
 contaPalavras (x:xs) = 1 + contaPalavras xs
+
+
+
+gerarAleatorio :: Int -> Int -> IO Int
+gerarAleatorio min max = do
+    -- Obtém o tempo atual em segundos desde a "época Unix"
+    currentTime <- getCurrentTime
+    let segundos = floor (utctDayTime currentTime) :: Int  -- Tempo em segundos
+    return (min + (segundos `mod` (max - min + 1)))  -- Limita ao intervalo [min, max]
