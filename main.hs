@@ -28,21 +28,18 @@ aplicarCor Errado letra = [letra]
 aplicarCor Parcial letra = "\x1b[33m" ++ [letra] ++ "\x1b[0m" -- amarelo
 
 
-
 aplicarCorLetra :: (Resultado, Char) -> String
 aplicarCorLetra (resultado,letra) = aplicarCor resultado letra
 --x = correta
-verificarResultado :: Palavra -> Palavra -> Palavra
-verificarResultado [] [] = []
-verificarResultado [] _ = []
-verificarResultado _ [] = []
-verificarResultado (x:xs) (y:ys) =
-    aplicarCorLetra (compara x y, y) ++ verificarResultado xs ys
-        where
-            compara x y
-                | x == y = Corretas
-                | taNaLista (x:xs) y = Parcial
-                | otherwise = Errado
+verificarResultado :: Palavra -> Palavra -> Palavra -> Palavra
+verificarResultado _ [] _ = []
+verificarResultado _ _ [] = []
+verificarResultado ts (x:xs) (y:ys) = aplicarCorLetra (compara x y, y) ++ verificarResultado ts xs ys
+  where
+    compara x y
+        | x == y = Corretas
+        | taNaLista ts y = Parcial
+        | otherwise = Errado
 
 jogar :: Palavra -> IO()
 jogar palavraCerta = loop 6
@@ -58,7 +55,7 @@ jogar palavraCerta = loop 6
                 else do
                     --verificação com cor
                     let contLetraCerta = verificarPalavra palavraCerta tentativaUsuario
-                    let palavraColorida = verificarResultado palavraCerta tentativaUsuario
+                    let palavraColorida = verificarResultado palavraCerta palavraCerta tentativaUsuario
                     putStrLn ("Tentativa: " ++ show contLetraCerta)
                     putStrLn ("Tentativa: " ++  palavraColorida)
                     if(tentativaUsuario == palavraCerta)
