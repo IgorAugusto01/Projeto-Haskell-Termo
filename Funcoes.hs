@@ -1,5 +1,5 @@
 
-module Funcoes  where
+module Funcoes  where 
 
 
 
@@ -18,4 +18,13 @@ criaLista c str (x:xs)
         
 
 
-      
+escolherPalavraPeloIndice :: Int -> Int -> [[Char]] -> [Char]
+escolherPalavraPeloIndice _ _ [] = error "palavra nao encontrada"
+escolherPalavraPeloIndice i n (x : xs)
+ | i == n = x
+ | otherwise = escolherPalavraPeloIndice (i+1) n xs
+
+
+contaPalavras :: [[Char]] -> Int
+contaPalavras []  = 0
+contaPalavras (x:xs) = 1 + contaPalavras xs
