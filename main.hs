@@ -6,6 +6,19 @@ tamanhoPalavra :: [a] -> Int
 tamanhoPalavra [] = 0
 tamanhoPalavra (x:xs) = 1 + tamanhoPalavra xs
 
+data Tentativa = Tentativa Palavra [Resultado] deriving (Show)--Palavra = palavra digitada pelo usuário
+
+type Jogo = (Palavra,[Tentativa]) --Palavra = palavra correta
+
+criarTentativasVazias :: Int -> [Tentativa] 
+criarTentativasVazias 0 =  []
+criarTentativasVazias x =  [tentativaVazia] ++ criarTentativasVazias (x-1)
+    where
+        tentativaVazia = Tentativa "_ _ _ _ _" [Errado,Errado,Errado,Errado,Errado]
+
+adicionarTentativa :: Tentativa -> Jogo -> Jogo 
+adicionarTentativa tentativa(palavraCorreta, tentativas) = (palavraCorreta, tentativas ++ [tentativa])
+
 taNaLista :: Eq a => [a] -> a -> Bool
 taNaLista [] _ = False
 taNaLista (x:xs) y 
@@ -68,6 +81,6 @@ main = do
  palavras <- recolherPalavras "BancoDePalavras.txt"
  let lista = criaLista ',' "" palavras
  --print lista
- jogar "Termo"
+ jogar "nação"
  
  
