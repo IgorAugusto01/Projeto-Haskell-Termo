@@ -1,6 +1,7 @@
 
 module Funcoes  where 
 import Data.Time.Clock (getCurrentTime, utctDayTime)
+import Data.Char
 
 
 
@@ -38,3 +39,7 @@ gerarAleatorio min max = do
     currentTime <- getCurrentTime
     let segundos = floor (utctDayTime currentTime) :: Int  -- Tempo em segundos
     return (min + (segundos `mod` (max - min + 1)))  -- Limita ao intervalo [min, max]
+
+
+transformaMinusculo :: [Char] -> [Char]
+transformaMinusculo xs =  map toLower xs

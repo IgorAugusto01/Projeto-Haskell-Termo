@@ -14,4 +14,6 @@ main = do
  
  indiceAleatorio <- gerarAleatorio 0 (total - 1) 
  let palavraSorteada = escolherPalavraPeloIndice 0 indiceAleatorio  lista
- putStrLn  palavraSorteada
+
+ let p = transformaMinusculo "Ola Mundo"
+ putStrLn (p)
