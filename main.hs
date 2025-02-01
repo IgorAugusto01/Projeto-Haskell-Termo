@@ -6,18 +6,18 @@ tamanhoPalavra :: [a] -> Int
 tamanhoPalavra [] = 0
 tamanhoPalavra (x:xs) = 1 + tamanhoPalavra xs
 
-data Tentativa = Tentativa Palavra [Resultado] deriving (Show)--Palavra = palavra digitada pelo usuário
+--data Tentativa = Tentativa Palavra [Resultado] deriving (Show)--Palavra = palavra digitada pelo usuário
 
-type Jogo = (Palavra,[Tentativa]) --Palavra = palavra correta
+type Jogo = (Palavra,[Palavra]) --Palavra = palavra correta
 
-criarTentativasVazias :: Int -> [Tentativa] 
+criarTentativasVazias :: Int -> [Palavra] 
 criarTentativasVazias 0 =  []
 criarTentativasVazias x =  [tentativaVazia] ++ criarTentativasVazias (x-1)
     where
-        tentativaVazia = Tentativa "_ _ _ _ _" [Errado,Errado,Errado,Errado,Errado]
+        tentativaVazia =  "_ _ _ _ _" 
 
-adicionarTentativa :: Tentativa -> Jogo -> Jogo 
-adicionarTentativa tentativa(palavraCorreta, tentativas) = (palavraCorreta, tentativas ++ [tentativa])
+adicionarTentativa :: Palavra -> Jogo -> Jogo 
+adicionarTentativa tentativa (palavraCorreta, tentativas) = (palavraCorreta, tentativas ++ [tentativa])
 
 taNaLista :: Eq a => [a] -> a -> Bool
 taNaLista [] _ = False
@@ -54,11 +54,18 @@ verificarResultado ts (x:xs) (y:ys) = aplicarCorLetra (compara x y, y) ++ verifi
         | taNaLista ts y = Parcial
         | otherwise = Errado
 
-jogar :: Palavra -> IO()
-jogar palavraCerta = loop 6
+imprimirLista :: [Palavra] -> IO()
+imprimirLista [] = return ()       
+imprimirLista (x:xs) = do
+    putStrLn x                     
+    imprimirLista xs 
+
+jogar :: Palavra -> [Palavra] -> IO()
+jogar palavraCerta listaTentativas = loop 6 
     where
         loop 0  = putStrLn ("Perdeu!!! A palavra correta é: " ++ palavraCerta)
         loop n = do
+            imprimirLista listaTentativas
             putStrLn ("Digite sua tentativa:")
             tentativaUsuario <- getLine
             if(tamanhoPalavra tentativaUsuario /= tamanhoPalavra palavraCerta)
@@ -69,6 +76,7 @@ jogar palavraCerta = loop 6
                     --verificação com cor
                     let contLetraCerta = verificarPalavra palavraCerta tentativaUsuario
                     let palavraColorida = verificarResultado palavraCerta palavraCerta tentativaUsuario
+                    --adicionarTentativa tentativaUsuario
                     putStrLn ("Tentativa: " ++ show contLetraCerta)
                     putStrLn ("Tentativa: " ++  palavraColorida)
                     if(tentativaUsuario == palavraCerta)
@@ -81,6 +89,6 @@ main = do
  palavras <- recolherPalavras "BancoDePalavras.txt"
  let lista = criaLista ',' "" palavras
  --print lista
- jogar "nação"
+ jogar "nação" (criarTentativasVazias 6)
  
  
