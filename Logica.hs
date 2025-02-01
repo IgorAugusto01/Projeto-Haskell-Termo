@@ -59,7 +59,7 @@ criarTentativasVazias x =  [tentativaVazia] ++ criarTentativasVazias (x-1)
 atualizarTentativas :: [Palavra] -> Palavra -> Palavra -> [Palavra]
 atualizarTentativas [] _ _ = []  
 atualizarTentativas (x:xs) palavraCerta tentativa
-    | x == "_ _ _ _ _" = verificarResultado palavraCerta palavraCerta tentativa : xs -- Substitui a primeira tentativa vazia
+    | x == "_ _ _ _ _" = verificarResultado palavraCerta palavraCerta tentativa : xs
     | otherwise = x : atualizarTentativas xs palavraCerta tentativa
 
 
@@ -72,6 +72,6 @@ escolherPalavraPeloIndice i n (x : xs)
 gerarAleatorio :: Int -> Int -> IO Int
 gerarAleatorio min max = do
     -- Obtém o tempo atual em segundos desde a "época Unix"
-    currentTime <- getCurrentTime
-    let segundos = floor (utctDayTime currentTime) :: Int  -- Tempo em segundos
+    tempoAtual <- getCurrentTime
+    let segundos = floor (utctDayTime tempoAtual) :: Int  -- Tempo em segundos
     return (min + (segundos `mod` (max - min + 1)))  -- Limita ao intervalo [min, max]
