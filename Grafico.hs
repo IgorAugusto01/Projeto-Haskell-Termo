@@ -12,11 +12,8 @@ aplicarCor Parcial letra = "\x1b[33m" ++ [letra] ++ " " ++ "\x1b[0m" -- amarelo
 aplicarCorLetra :: (Resultado, Char) -> String
 aplicarCorLetra (resultado,letra) = aplicarCor resultado letra
 
-imprimirLista :: [Palavra] -> IO()
-imprimirLista [] = return ()       
-imprimirLista (x:xs) = do
-    putStrLn x                     
-    imprimirLista xs 
+imprimirLista :: [Palavra] -> IO ()
+imprimirLista xs = mapM_ putStrLn [x | x <- xs]
     
 limparTela :: IO ()
 limparTela = do
