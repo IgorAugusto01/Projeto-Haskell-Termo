@@ -58,7 +58,7 @@ escolherPalavraPeloIndice i n (x : xs)
 
 gerarAleatorio :: Int -> Int -> IO Int
 gerarAleatorio min max = do
-    -- Obtém o tempo atual em segundos desde a "época Unix"
+    
     tempoAtual <- getCurrentTime
-    let segundos = floor (utctDayTime tempoAtual) :: Int  -- Tempo em segundos
-    return (min + (segundos `mod` (max - min + 1)))  -- Limita ao intervalo [min, max]
+    let segundos = floor (utctDayTime tempoAtual) :: Int  
+    return (min + (segundos `mod` (max - min + 1)))  
