@@ -15,8 +15,6 @@ tamanho (x:xs) = 1 + tamanho xs
 transformaMinusculo :: [Char] -> [Char]
 transformaMinusculo xs =  map toLower xs
 
-
-
 taNaLista :: Eq a => [a] -> a -> Bool
 taNaLista [] _ = False
 taNaLista (x:xs) y 
@@ -34,10 +32,9 @@ verificarResultado ts (x:xs) (y:ys) = aplicarCorLetra (compara x y, y) ++ verifi
         | otherwise = Errado
 
 criaLista :: Char -> [Char] ->[Char] ->  [[Char]]
-criaLista _ _ [] = []
+criaLista _ xs [] = [xs]
 criaLista c str (x:xs) 
- | x == c = if(str == "") then criaLista c "" xs else str : criaLista c "" xs
- | x == ' ' = criaLista c str xs
+ | x == c = str : criaLista c "" xs
  | otherwise = criaLista c (str ++ [x]) xs
  
 criarTentativasVazias :: Int -> [Palavra] 
