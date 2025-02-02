@@ -8,16 +8,14 @@ import Data.Time.Clock (getCurrentTime, utctDayTime)
 recolherPalavras :: String -> IO String
 recolherPalavras caminhoArquivo = readFile caminhoArquivo
 
-tamanhoPalavra :: [a] -> Int
-tamanhoPalavra [] = 0
-tamanhoPalavra (x:xs) = 1 + tamanhoPalavra xs
+tamanho :: [a] -> Int
+tamanho [] = 0
+tamanho (x:xs) = 1 + tamanho xs
 
 transformaMinusculo :: [Char] -> [Char]
 transformaMinusculo xs =  map toLower xs
 
-contaPalavras :: [[Char]] -> Int
-contaPalavras []  = 0
-contaPalavras (x:xs) = 1 + contaPalavras xs
+
 
 taNaLista :: Eq a => [a] -> a -> Bool
 taNaLista [] _ = False

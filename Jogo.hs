@@ -16,9 +16,9 @@ jogo palavraCerta listaTentativas = loop 6 listaTentativas
         imprimirLista tentativas
         putStr "Digite sua tentativa: "
         tentativaUsuario <- getLine
-        if tamanhoPalavra tentativaUsuario /= tamanhoPalavra palavraCerta
+        if tamanho tentativaUsuario /= tamanho palavraCerta
             then do
-                putStrLn ("A palavra tem " ++ show (tamanhoPalavra palavraCerta) ++ " letras!!")
+                putStrLn ("A palavra tem " ++ show (tamanho palavraCerta) ++ " letras!!")
                 putStr("Aperte Enter para continuar...")
                 getLine
                 loop n tentativas
