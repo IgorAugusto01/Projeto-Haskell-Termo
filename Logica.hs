@@ -30,14 +30,6 @@ verificarResultado ts (x:xs) (y:ys) = aplicarCorLetra (compara x y, y) ++ verifi
         | x == y = Corretas
         | taNaLista ts y = Parcial
         | otherwise = Errado
-        
-verificarPalavra :: Palavra -> Palavra -> [Resultado]
-verificarPalavra correta tentativa = zipWith verificar correta tentativa --aplica a função verificar em correta e tentativa, gerando outra lista
-    where
-        verificar letraCorreta letraTentativa
-            | letraCorreta == letraTentativa = Corretas
-            | taNaLista correta letraTentativa = Parcial
-            | otherwise = Errado
 
 criaLista :: Char -> [Char] ->[Char] ->  [[Char]]
 criaLista _ xs [] = [xs]
