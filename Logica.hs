@@ -8,16 +8,12 @@ import Data.Time.Clock (getCurrentTime, utctDayTime)
 recolherPalavras :: String -> IO String
 recolherPalavras caminhoArquivo = readFile caminhoArquivo
 
-tamanhoPalavra :: [a] -> Int
-tamanhoPalavra [] = 0
-tamanhoPalavra (x:xs) = 1 + tamanhoPalavra xs
+tamanho :: [a] -> Int
+tamanho [] = 0
+tamanho (x:xs) = 1 + tamanho xs
 
 transformaMinusculo :: [Char] -> [Char]
 transformaMinusculo xs =  map toLower xs
-
-contaPalavras :: [[Char]] -> Int
-contaPalavras []  = 0
-contaPalavras (x:xs) = 1 + contaPalavras xs
 
 taNaLista :: Eq a => [a] -> a -> Bool
 taNaLista [] _ = False
@@ -44,10 +40,9 @@ verificarPalavra correta tentativa = zipWith verificar correta tentativa --aplic
             | otherwise = Errado
 
 criaLista :: Char -> [Char] ->[Char] ->  [[Char]]
-criaLista _ _ [] = []
+criaLista _ xs [] = [xs]
 criaLista c str (x:xs) 
- | x == c = if(str == "") then criaLista c "" xs else str : criaLista c "" xs
- | x == ' ' = criaLista c str xs
+ | x == c = str : criaLista c "" xs
  | otherwise = criaLista c (str ++ [x]) xs
  
 criarTentativasVazias :: Int -> [Palavra] 
